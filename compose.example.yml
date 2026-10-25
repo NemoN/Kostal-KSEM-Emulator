@@ -1,0 +1,40 @@
+services:
+  ksem-emulator:
+    image: local/ksem-emulator:0.1.0
+    build: .
+    profiles: [ksem]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp]
+    devices:
+      - "${KSEM_SERIAL_DEVICE:-/dev/ksem-unconfigured}:/dev/ksem:rwm"
+    group_add:
+      - "${KSEM_SERIAL_GID:-20}"
+    environment:
+      SOURCE_TYPE: "${KSEM_SOURCE_TYPE:-victron_mqtt}"
+      SERIAL_PORT: /dev/ksem
+      MQTT_HOST: "${KSEM_MQTT_HOST:-mqtt.example}"
+      MQTT_PORT: "${KSEM_MQTT_PORT:-1883}"
+      MQTT_PREFIX: "${KSEM_MQTT_PREFIX:-}"
+      MQTT_USERNAME: "${KSEM_MQTT_USERNAME:-}"
+      MQTT_PASSWORD: "${KSEM_MQTT_PASSWORD:-}"
+      VICTRON_PORTAL_ID: "${KSEM_PORTAL_ID:-replace-locally}"
+      VICTRON_SERVICE: "${KSEM_SERVICE:-acload}"
+      VICTRON_INSTANCE: "${KSEM_INSTANCE:-40}"
+      STATE_FILE: /data/energy-offsets.json
+      SHELLY_URL: "${KSEM_SHELLY_URL:-}"
+      SHELLY_USERNAME: "${KSEM_SHELLY_USERNAME:-admin}"
+      SHELLY_PASSWORD: "${KSEM_SHELLY_PASSWORD:-}"
+    volumes:
+      - ksem-emulator-data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  ksem-emulator-data:

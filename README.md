@@ -1,5 +1,19 @@
 # KSEM-Emulator für KOSTAL Plenticore
 
+## Erweiterungen in diesem Fork
+
+Dieser Fork ergänzt das ursprüngliche Projekt um eine wählbare Victron-MQTT-Datenquelle,
+persistente Energiezähleroffsets, einen unprivilegierten Docker-Betrieb und automatisierte
+Modbus-RTU-Tests. Der Shelly-Eingang bleibt erhalten. Die Umsetzung basiert auf
+Upstream-Commit `c74b10123292af1e9c571911b611492525fa4d16`; Lizenz und Urheberhinweise
+des Originalprojekts bleiben erhalten.
+
+**Die aktuelle Anleitung für MQTT, Docker, Konfiguration und Inbetriebnahme steht in
+[docs/victron-mqtt.md](docs/victron-mqtt.md).** Die untenstehende ursprüngliche Anleitung
+beschreibt den Shelly-Aufbau. Zugangsdaten und serielle Schnittstellen werden im Fork
+über Umgebungsvariablen eingestellt; sie stehen nicht mehr fest im Python-Code.
+
+
 ## Inhaltsverzeichnis
 
 - [Ziel des Projekts](#ziel-des-projekts)
